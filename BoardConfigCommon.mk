@@ -12,10 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# inherit from common msm7x30 Recovery
+-include device/htc/7x30-recovery/BoardConfigCommon.mk
+
 BOARD_VENDOR := htc
 
 # Bootloader
 TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+BOARD_HAS_NO_MISC_PARTITION := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msm7x30
@@ -27,6 +32,20 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a8
+ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HAVE_VFP := true
+ARCH_ARM_HAVE_NEON := true
+TARGET_ARCH_VARIANT_CPU := cortex-a8
+TARGET_ARCH_VARIANT_FPU := neon
+
+TARGET_EXTRA_CFLAGS += $(call cc-option,-march=armv7-a -mtune=cortex-a8)
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
+BOARD_VOLD_MAX_PARTITIONS := 36
+
+# Pmem
+TARGET_USES_PMEM := true
 
 # Flags
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
@@ -74,5 +93,12 @@ TARGET_NO_HW_VSYNC := true
 COMMON_GLOBAL_CFLAGS += -DQCOM_NO_SECURE_PLAYBACK -DREFRESH_RATE=60 -DHTC_RGBA_8888_OFFSET
 BOARD_EGL_CFG := device/htc/msm7x30-common/configs/egl.cfg
 
+# Boot Animation
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_USE_RGB565 := true
+
 # Webkit
+ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
+DYNAMIC_SHARED_LIBV8SO := true
