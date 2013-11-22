@@ -49,6 +49,10 @@ PRODUCT_COPY_FILES += \
     device/htc/msm7x30-common/configs/media_profiles.xml:system/etc/media_profiles.xml \
     device/htc/msm7x30-common/configs/media_codecs.xml:system/etc/media_codecs.xml
 
+# Prebuilt Audio policy
+PRODUCT_COPY_FILES += \
+    device/htc/msm7x30-common/configs/audio_policy.conf:system/etc/audio_policy.conf
+
 # Common GPS config
 PRODUCT_COPY_FILES += \
     device/common/gps/gps.conf_EU_SUPL:system/etc/gps.conf
@@ -57,8 +61,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.primary.msm7x30 \
-    libaudioutils \
-    audio_policy.conf
+    libaudioutils
 
 # Video
 PRODUCT_PACKAGES += \
